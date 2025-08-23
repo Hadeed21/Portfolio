@@ -6,6 +6,7 @@ import Aurora from './Aurora';
 import GridMotion from './GridMotion';
 import CardNav from './CardNav';
 import logo from './logo.svg';
+import ProfileCard from './ProfileCard'
 
 function App() {
   const projectImages = [
@@ -37,14 +38,14 @@ function App() {
             onClick: () => console.log("About clicked")
           },
           {
-            label: "Projects", 
+            label: "Projects",
             bgColor: "#ffffff10",
             textColor: "#fff",
             onClick: () => console.log("Projects clicked")
           },
           {
             label: "Contact",
-            bgColor: "#ffffff10", 
+            bgColor: "#ffffff10",
             textColor: "#fff",
             onClick: () => console.log("Contact clicked")
           }
@@ -78,8 +79,19 @@ function App() {
         </ul>
       </section>
       <section className="App-section" id="contact">
-        <h3>Contact</h3>
-        <p>Email: your.email@example.com</p>
+        <ProfileCard
+          name="Hadeed"
+          title="App Developer"
+          handle="syedhadeedkhalid"
+          status="Online"
+          contactText="Contact Me"
+          iconUrl="/iconurl.png"
+          avatarUrl="/avatar.png"
+          showUserInfo={true}
+          enableTilt={true}
+          enableMobileTilt={false}
+          onContactClick={() => console.log('Contact clicked')}
+        />
       </section>
     </div>
   );

@@ -84,12 +84,11 @@
   font-family: 'Uni Sans', Arial, sans-serif;
   font-weight: 700;
   color: #fff;
-  background: #ffffff90;
-  border: none;
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   text-decoration: none;
   letter-spacing: 1px;
-  box-shadow: 0 2px 12px rgba(73,83,225,0.15);
   transition: background 0.2s, transform 0.2s;
   cursor: pointer;
 }

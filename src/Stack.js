@@ -40,7 +40,7 @@ export default function Stack({
   sensitivity = 200,
   maxCardDimensions = { width: 200, height: 200 },
   cardsData = [],
-  animationConfig = { stiffness: 260, damping: 20 },
+  animationConfig = { stiffness: 200, damping: 25 },
   sendToBackOnClick = false
 }) {
   const [cards, setCards] = useState(

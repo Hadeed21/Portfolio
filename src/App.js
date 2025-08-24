@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import './App.css';
 import BlurText from './BlurText';
 import CurvedLoop from './CurvedLoop';
@@ -13,50 +13,58 @@ import ProjectsGrid from './ProjectsGrid';
 
 function App() {
   const [lightRaysOpacity, setLightRaysOpacity] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  // Throttled scroll handler for better performance
+  const handleScroll = useCallback(() => {
+    if (!isScrolling) {
+      setIsScrolling(true);
+      
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        // Calculate how close we are to the bottom of the page
+        const scrollProgress = scrollY / (documentHeight - windowHeight);
+
+        // Show rays only when we're in the last 30% of the page
+        if (scrollProgress > 0.7) {
+          const opacity = Math.min(1, (scrollProgress - 0.7) / 0.3);
+          setLightRaysOpacity(opacity);
+        } else {
+          setLightRaysOpacity(0);
+        }
+        
+        setIsScrolling(false);
+      });
+    }
+  }, [isScrolling]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // Calculate how close we are to the bottom of the page
-      const scrollProgress = scrollY / (documentHeight - windowHeight);
-
-      // Show rays only when we're in the last 30% of the page
-      if (scrollProgress > 0.7) {
-        const opacity = Math.min(1, (scrollProgress - 0.7) / 0.3);
-        setLightRaysOpacity(opacity);
-      } else {
-        setLightRaysOpacity(0);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
-  const projectImages = [
-    // '/Project%20SS/1.png',
-    // '/Project%20SS/2.png',
-    // '/Project%20SS/3.png',
-    '/Project%20SS/4.jpg',
-    '/Project%20SS/5.jpg',
-    '/Project%20SS/6.jpg',
-    '/Project%20SS/7.jpg',
-    '/Project%20SS/8.jpg',
-    '/Project%20SS/9.jpg',
-    '/Project%20SS/10.jpg',
-    '/Project%20SS/11.jpg',
-    '/Project%20SS/12.jpg',
-    '/Project%20SS/13.jpg',
-    '/Project%20SS/14.jpg',
-    '/Project%20SS/15.jpg',
-  ];
-  const projectData = [
+  // Memoize project data to prevent unnecessary re-renders
+  const projectImages = useMemo(() => [
+    '/Project SS/4.jpg',
+    '/Project SS/5.jpg',
+    '/Project SS/6.jpg',
+    '/Project SS/7.jpg',
+    '/Project SS/8.jpg',
+    '/Project SS/9.jpg',
+    '/Project SS/10.jpg',
+    '/Project SS/11.jpg',
+    '/Project SS/12.jpg',
+    '/Project SS/13.jpg',
+    '/Project SS/14.jpg',
+    '/Project SS/15.jpg',
+  ], []);
+
+  const projectData = useMemo(() => [
     {
       title: "The Grub Truck",
-      // description: "React Native mobile application with modern UI/UX",
       images: [
         { id: 1, img: "/Project SS/Grub/12.jpg" },
         { id: 2, img: "/Project SS/Grub/11.jpg" },
@@ -74,7 +82,6 @@ function App() {
     },
     {
       title: "fAIk App",
-      // description: "React Native mobile application with modern UI/UX",
       images: [
         { id: 1, img: "/Project SS/faik/6.jpg" },
         { id: 2, img: "/Project SS/faik/5.jpg" },
@@ -82,27 +89,23 @@ function App() {
         { id: 4, img: "/Project SS/faik/3.jpg" },
         { id: 5, img: "/Project SS/faik/2.jpg" },
         { id: 6, img: "/Project SS/faik/1.jpg" },
-        
       ]
     },
     {
       title: "A.R.C.H Logistics",
-      // description: "React Native mobile application with modern UI/UX",
       images: [
         { id: 1, img: "/Project SS/Arch/5.jpg" },
         { id: 2, img: "/Project SS/Arch/4.jpg" },
         { id: 3, img: "/Project SS/Arch/3.jpg" },
         { id: 4, img: "/Project SS/Arch/2.jpg" },
         { id: 5, img: "/Project SS/Arch/1.jpg" },
-
-        
       ]
     },
-  ];
+  ], []);
   return (
     <div className="App">
       {/* Light Rays Effect - Last Page Only with Scroll Fade */}
-      <div
+      {/* <div
         id="light-rays-container"
         style={{
           width: '100vw',
@@ -114,25 +117,25 @@ function App() {
           pointerEvents: 'none',
           background: 'transparent',
           opacity: lightRaysOpacity,
-          transition: 'opacity 0.3s ease'
+          transition: 'opacity 0.3s ease',
+          willChange: 'opacity'
         }}
       >
         <LightRays
           raysOrigin="bottom-center"
-          // raysColor="#ffffff"
-          raysSpeed={0.5}
-          lightSpread={2}
-          rayLength={3.0}
-          followMouse={true}
+          raysSpeed={0.3}
+          lightSpread={1.5}
+          rayLength={2.5}
+          followMouse={false}
           fadeDistance={1}
-          saturation={1}
-          mouseInfluence={0.2}
+          saturation={0.8}
+          mouseInfluence={0.1}
           noiseAmount={0}
           distortion={0}
-          pulsating={true}
+          pulsating={false}
           className="custom-rays"
         />
-      </div>
+      </div> */}
 
       <CardNav
         logo={logo}
@@ -163,7 +166,7 @@ function App() {
         ease="power3.out"
       />
       <section className="hero-section">
-        <Aurora colorStops={["#5227FF", "#7CFF67", "#5227FF"]} blend={0.5} amplitude={1.0} speed={0.5} />
+        <Aurora colorStops={["#5227FF", "#7CFF67", "#5227FF"]} blend={0.3} amplitude={0.8} speed={0.3} />
         <div className="hero-content">
           <BlurText text="Developing" animateBy="words" className="hero-h1" />
           <BlurText text="For Every Device," animateBy="words" className="hero-h1" />
@@ -192,7 +195,7 @@ function App() {
             iconUrl="/iconurl.png"
             avatarUrl="/avatar.png"
             showUserInfo={true}
-            enableTilt={true}
+            enableTilt={window.innerWidth > 768}
             enableMobileTilt={false}
             onContactClick={() => console.log('Contact clicked')}
           />

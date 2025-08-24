@@ -4,6 +4,9 @@
   min-height: 100vh;
   font-family: var(--main-font);
   font-weight: 300;
+  will-change: auto;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .hero-section {
@@ -18,6 +21,7 @@
   font-family: var(--main-font);
   padding-top: 130px;
   overflow: hidden;
+  will-change: transform;
 }
 
 .hero-content {
@@ -185,14 +189,16 @@
 
 .contact-section-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 90px;
   width: 100%;
+  max-width: 1200px;
   min-height: 60vh;
   flex-wrap: nowrap;
   padding: 0 40px;
   flex-direction: row;
+  margin: 0 auto;
 }
 
 /* Override the parent section's column direction for contact section */
@@ -207,6 +213,7 @@
 @media (max-width: 1200px) {
   .contact-section-container {
     gap: 40px;
+    max-width: 1000px;
   }
 }
 
@@ -374,4 +381,21 @@
   font-family: var(--main-font);
   margin: 0;
   font-weight: 300;
+}
+
+/* Performance optimizations for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .hero-section {
+    will-change: auto;
+  }
+  
+  #light-rays-container {
+    display: none !important;
+  }
 }

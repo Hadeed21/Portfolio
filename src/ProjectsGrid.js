@@ -9,10 +9,10 @@ const ProjectsGrid = ({ projects }) => {
         <div key={groupIndex} className="project-stack-container">
           <div className="stack-and-text">
             <Stack
-              randomRotation={true}
-              sensitivity={300}
+              randomRotation={false}
+              sensitivity={200}
               sendToBackOnClick={false}
-              maxCardDimensions={{ width: 350, height: 550 }}
+              maxCardDimensions={{ width: 400, height: 600 }}
               cardsData={projectGroup.images}
             />
             <div className="project-info">

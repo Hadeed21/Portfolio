@@ -59,7 +59,7 @@ export default function Stack({
   // Generate stable random rotations for each card
   const randomRotations = useMemo(() => {
     return cards.map(() => randomRotation ? Math.random() * 10 - 5 : 0);
-  }, [cards.length, randomRotation]);
+  }, [cards, randomRotation]);
 
   // Detect image dimensions and calculate optimal card size
   useEffect(() => {

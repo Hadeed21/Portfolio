@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import './App.css';
 import BlurText from './BlurText';
 import CurvedLoop from './CurvedLoop';
@@ -8,43 +8,11 @@ import CardNav from './CardNav';
 import logo from './logo.svg';
 import ProfileCard from './ProfileCard';
 import ContactForm from './ContactForm';
-import LightRays from './LightRays';
 import ProjectsGrid from './ProjectsGrid';
 
 function App() {
-  const [lightRaysOpacity, setLightRaysOpacity] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
 
-  // Throttled scroll handler for better performance
-  const handleScroll = useCallback(() => {
-    if (!isScrolling) {
-      setIsScrolling(true);
-      
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
 
-        // Calculate how close we are to the bottom of the page
-        const scrollProgress = scrollY / (documentHeight - windowHeight);
-
-        // Show rays only when we're in the last 30% of the page
-        if (scrollProgress > 0.7) {
-          const opacity = Math.min(1, (scrollProgress - 0.7) / 0.3);
-          setLightRaysOpacity(opacity);
-        } else {
-          setLightRaysOpacity(0);
-        }
-        
-        setIsScrolling(false);
-      });
-    }
-  }, [isScrolling]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
 
   // Memoize project data to prevent unnecessary re-renders
   const projectImages = useMemo(() => [
@@ -172,7 +140,7 @@ function App() {
           <BlurText text="For Every Device," animateBy="words" className="hero-h1" />
           <BlurText text="Everywhere" animateBy="words" className="hero-h1" />
           <BlurText text="Syed Hadeed Khalid" animateBy="words" className="hero-h2" />
-          <a href="#" className="download-resume-btn">Download Resume</a>
+          <button className="download-resume-btn">Download Resume</button>
         </div>
         <CurvedLoop marqueeText="React native ✦ Flutter ✦ React.js ✦ HTML ✦ CSS ✦ JavaScript ✦ Python ✦" curveAmount={0} className="curved-loop-small" />
       </section>
@@ -211,7 +179,7 @@ function App() {
         {/* Footer */}
         <div className="footer">
           <div className="footer-line"></div>
-          <p className="footer-text">Made with ❤️ by 𐋅</p>
+          <p className="footer-text">Made with ♡ by 𐋅</p>
         </div>
       </section>
     </div>

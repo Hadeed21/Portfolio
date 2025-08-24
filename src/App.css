@@ -140,11 +140,21 @@
 
 
 .App-section h3 {
-  margin-top: 0;
+  text-align: center;
   color: #fff;
-  font-size: 1.3rem;
-  font-family: var(--main-font);
-  font-weight: 700;
+  font-style: normal;
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: -2px;
+  margin-bottom: 90px;
+  font-family: 'Uni Sans', Arial, sans-serif;
+  background-image: linear-gradient(to bottom, #fff, #4d4d4d);
+  background-size: 1em 1.5em;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 .App-section ul {
@@ -153,6 +163,98 @@
 
 .App-section li {
   margin-bottom: 8px;
+}
+
+.contact-heading {
+  text-align: center;
+  color: #fff;
+  font-style: normal;
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: -2px;
+  margin-bottom: 90px;
+  font-family: 'Uni Sans', Arial, sans-serif;
+  background-image: linear-gradient(to bottom, #fff, #4d4d4d);
+  background-size: 1em 1.5em;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.contact-section-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 90px;
+  width: 100%;
+  min-height: 60vh;
+  flex-wrap: nowrap;
+  padding: 0 40px;
+  flex-direction: row;
+}
+
+/* Override the parent section's column direction for contact section */
+#contact.App-section {
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 48px;
+  min-height: 100vh;
+}
+
+/* Responsive design for contact section */
+@media (max-width: 1200px) {
+  .contact-section-container {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-heading {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .contact-section-container {
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  #contact.App-section {
+    padding: 40px 20px;
+  }
+  
+  .footer {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-heading {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+  
+  .contact-section-container {
+    gap: 30px;
+    padding: 15px;
+    justify-content: center;
+  }
+  
+  #contact.App-section {
+    padding: 30px 15px;
+  }
+  
+  .footer {
+    margin-top: 15px;
+  }
+  
+  .footer-text {
+    font-size: 0.9rem;
+  }
 }
 
 /* .navbar {
@@ -254,4 +356,22 @@
   text-align: center;
   width: 100%;
   text-transform: uppercase;
+}
+
+/* Footer Styles */
+.footer {
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+  padding: 10px 0;
+}
+
+
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  font-family: var(--main-font);
+  margin: 0;
+  font-weight: 300;
 }
